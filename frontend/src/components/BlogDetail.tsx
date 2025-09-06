@@ -7,6 +7,7 @@ interface Blog {
   content: string;
   image?: string;
   createdAt?: string;
+  images?: string[];
   readTime?: string;
 }
 
@@ -39,18 +40,30 @@ const BlogDetail = ({ blog, onBack }: BlogDetailProps) => {
         </div>
       </div>
 
-      {blog.image && (
+      {/* Blog Images Gallery */}
+      {blog.images && blog.images.length > 0 && (
         <img
-          src={blog.image}
+          src={blog.images[0]} // cover image
           alt={blog.title}
           className="w-full h-64 object-cover rounded-lg mb-6"
         />
       )}
 
+      {/* Show More Images Button */}
+      {blog.images && blog.images.length > 1 && (
+        <Button
+          variant="outline"
+          className="mb-6"
+          onClick={() => window.location.href = `/gallery?blogId=${blog._id}`}
+        >
+          Show More Images →
+        </Button>
+      )}
+
       <p className="text-lg leading-relaxedc pt-2 pb-10">{blog.content}</p>
-            <Button variant="ghost" onClick={onBack} className="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-            Back to Blogs
-            </Button>
+      <Button variant="ghost" onClick={onBack} className="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+        Back to Blogs
+      </Button>
     </div>
   );
 };

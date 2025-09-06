@@ -8,6 +8,7 @@ interface Blog {
   _id: string;
   title: string;
   content: string;
+  images?: string[];
   image?: string;
   date?: string;
   category?: string;
@@ -120,10 +121,10 @@ const Blog = ({ onReadMore }: BlogProps) => {
                           <Calendar className="h-4 w-4 mr-1" />
                           {post.createdAt
                             ? new Date(post.createdAt).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              })
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })
                             : "No Date"}
                         </div>
                         <div className="flex items-center">

@@ -7,7 +7,7 @@ import { SkillCard } from "@/components/SkillCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ServiceCard } from "@/components/ServiceCard";
 import { useToast } from "@/hooks/use-toast";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 
 import BlogDetail from "@/components/BlogDetail";
 
@@ -52,6 +52,17 @@ const Portfolio = () => {
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+  React.useEffect(() => {
+    if (window.location.hash === "#blog") {
+      setActiveTab("blog");
+    }
+    if (window.location.hash === "#gallery") {
+      setActiveTab("gallery");
+    }
+    if (window.location.hash === "#contact") {
+      setActiveTab("contact");
+    }
+  }, []);
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -333,8 +344,8 @@ const Portfolio = () => {
                           rel="noopener noreferrer"
                           className="text-primary font-medium hover:underline hover:text-blue-600 transition-colors duration-200">
                           CML Club
-                        </a>                         
-                        </div>
+                        </a>
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -483,11 +494,7 @@ const Portfolio = () => {
 
           {/* Daily Blog Tab */}
           <TabsContent value="blog">
-            {selectedBlog ? (
-              <BlogDetail blog={selectedBlog} onBack={() => setSelectedBlog(null)} />
-            ) : (
-              <Blog onReadMore={(blog) => setSelectedBlog(blog)} />
-            )}
+            <Blog onReadMore={(blog) => (window.location.href = `/blog/${blog._id}`)} />
           </TabsContent>
 
           {/* Image Gallery Tab */}

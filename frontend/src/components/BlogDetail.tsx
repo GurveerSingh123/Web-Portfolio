@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 interface Blog {
   _id: string;
@@ -16,8 +18,31 @@ interface BlogDetailProps {
   onBack: () => void;
 }
 
-const BlogDetail = ({ blog, onBack }: BlogDetailProps) => {
-  if (!blog) return null;
+const BlogDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const [blog, setBlog] = useState<Blog | null>(null);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/blogs/${id}`);
+        if (!res.ok) throw new Error("Failed to fetch blog");
+        const data: Blog = await res.json();
+        setBlog(data);
+      } catch (err) {
+        console.error("Error fetching blog:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchBlog();
+  }, [id]);
+  if (loading) return <p className="text-center mt-20">Loading blog...</p>;
+    if (!blog) return <p className="text-center mt-10">Blog not found</p>;
+
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">
@@ -61,7 +86,7 @@ const BlogDetail = ({ blog, onBack }: BlogDetailProps) => {
       )}
 
       <p className="text-lg leading-relaxedc pt-2 pb-10">{blog.content}</p>
-      <Button variant="ghost" onClick={onBack} className="px-2 py-1 text-xs font-medium  bg-primary/30 border border-primary/20">
+      <Button variant="ghost"  onClick={() => (window.location.href = `/#blog`)} className="px-2 py-1 text-xs font-medium  bg-primary/30 border border-primary/20">
         ← Back to Blogs
       </Button>
     </div>

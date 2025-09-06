@@ -36,6 +36,8 @@ const Gallery = () => {
 
   let images: string[] = [];
   let heading = "Image Gallery";
+  const blog = blogId ? blogs.find((b) => b._id === blogId) : null;
+
 
   if (blogId) {
     const blog = blogs.find((b) => b._id === blogId);
@@ -52,14 +54,15 @@ const Gallery = () => {
       <h2 className="text-4xl font-bold text-foreground mb-6">{heading}</h2>
       <div className="w-24 h-1 bg-gradient-primary mx-auto mb-8"></div>
 
-      {blogId && (
+      {blogId && blog && (
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(`/blog/${blog._id}`)}
           className="mb-6 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/80 transition"
         >
           ← Back to Blog
         </button>
       )}
+
 
 
       {images.length > 0 ? (

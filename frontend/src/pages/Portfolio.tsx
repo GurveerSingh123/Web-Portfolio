@@ -478,7 +478,7 @@ const Portfolio = () => {
           {/* Daily Blog Tab */}
           <TabsContent value="blog">
             <Blog />
-          </TabsContent>"
+          </TabsContent>
 
           {/* Image Gallery Tab */}
           <TabsContent value="gallery">

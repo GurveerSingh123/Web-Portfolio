@@ -61,8 +61,8 @@ const BlogDetail = ({ blog, onBack }: BlogDetailProps) => {
       )}
 
       <p className="text-lg leading-relaxedc pt-2 pb-10">{blog.content}</p>
-      <Button variant="ghost" onClick={onBack} className="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-        Back to Blogs
+      <Button variant="ghost" onClick={onBack} className="px-2 py-1 text-xs font-medium  bg-primary/30 border border-primary/20">
+        ← Back to Blogs
       </Button>
     </div>
   );

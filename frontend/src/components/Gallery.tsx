@@ -1,39 +1,100 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Image, Brain, GraduationCap, Code, Briefcase, BarChart3 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+interface Blog {
+  _id: string;
+  title: string;
+  images?: string[];
+}
 
 const Gallery = () => {
-  return (
-    <div className="text-center py-20">
-      <Image className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
-      <h2 className="text-4xl font-bold text-foreground mb-6">Image Gallery</h2>
-      <div className="w-24 h-1 bg-gradient-primary mx-auto mb-8"></div>
-      <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-        A visual journey through my projects, achievements, and learning experiences
-      </p>
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const blogId = searchParams.get("blogId");
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {[
-          { icon: Image, title: "Project Screenshots" },
-          { icon: BarChart3, title: "Data Visualizations" },
-          { icon: Brain, title: "ML Model Results" },
-          { icon: GraduationCap, title: "Certificates" },
-          { icon: Code, title: "Code Snippets" },
-          { icon: Briefcase, title: "Workspace" }
-        ].map((item, idx) => (
-          <Card
-            key={idx}
-            className="aspect-square overflow-hidden shadow-card hover:shadow-glow transition-all duration-300"
-          >
-            <CardContent className={`p-0 h-full flex items-center justify-center bg-gradient-${idx % 2 === 0 ? "primary" : "secondary"}`}>
-              <div className={`text-center text-${idx % 2 === 0 ? "primary" : "secondary"}-foreground`}>
-                <item.icon className="h-12 w-12 mx-auto mb-4" />
-                <p className="text-sm">{item.title}</p>
-                <p className="text-xs opacity-80">Coming Soon</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/blogs"); // adjust to your backend
+        if (!res.ok) throw new Error("Failed to fetch blogs");
+        const data: Blog[] = await res.json();
+        setBlogs(data);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) return <p className="text-center mt-20">Loading gallery...</p>;
+
+  let images: string[] = [];
+  let heading = "Image Gallery";
+
+  if (blogId) {
+    const blog = blogs.find((b) => b._id === blogId);
+    if (blog) {
+      images = blog.images || [];
+      heading = `${blog.title} - Image Gallery`;
+    }
+  } else {
+    images = blogs.flatMap((blog) => blog.images || []);
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto py-20 px-4 text-center">
+      <h2 className="text-4xl font-bold text-foreground mb-6">{heading}</h2>
+      <div className="w-24 h-1 bg-gradient-primary mx-auto mb-8"></div>
+
+      {blogId && (
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-6 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/80 transition"
+        >
+          ← Back to Blog
+        </button>
+      )}
+
+
+      {images.length > 0 ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {images.map((img, idx) => (
+            <div
+              key={idx}
+              className="aspect-square overflow-hidden rounded-lg shadow-card shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300"
+            >
+              <img
+                src={img}
+                alt={`Gallery image ${idx + 1}`}
+                onClick={() => setSelectedImage(img)}
+                className="w-full h-full object-cover hover:scale-100 transition-transform duration-300"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500">No images available 📷</p>
+      )}
+
+      {/* ✅ Fullscreen modal goes here */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <img
+            src={selectedImage}
+            alt="Fullscreen"
+            className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -16,9 +16,13 @@ interface Blog {
   createdAt?: string;
 }
 
+interface BlogProps {
+  onReadMore: (blog: Blog) => void;
+}
+
 const categories = ["All", "AI", "Machine Learning", "Deep Learning"];
 
-const Blog = () => {
+const Blog = ({ onReadMore }: BlogProps) => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
@@ -127,7 +131,7 @@ const Blog = () => {
                           {post.readTime}
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" onClick={() => onReadMore(post)} >
                         Read More →
                       </Button>
                     </div>

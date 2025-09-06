@@ -7,7 +7,9 @@ import { SkillCard } from "@/components/SkillCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ServiceCard } from "@/components/ServiceCard";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import React,{ useState } from "react";
+
+import BlogDetail from "@/components/BlogDetail";
 
 import Gallery from "@/components/Gallery";
 import Blog from "@/components/Blog";
@@ -40,7 +42,10 @@ import {
   Calendar
 } from "lucide-react";
 
+
+
 const Portfolio = () => {
+  const [selectedBlog, setSelectedBlog] = useState<any>(null);
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("home");
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -477,7 +482,11 @@ const Portfolio = () => {
 
           {/* Daily Blog Tab */}
           <TabsContent value="blog">
-            <Blog />
+            {selectedBlog ? (
+              <BlogDetail blog={selectedBlog} onBack={() => setSelectedBlog(null)} />
+            ) : (
+              <Blog onReadMore={(blog) => setSelectedBlog(blog)} />
+            )}
           </TabsContent>
 
           {/* Image Gallery Tab */}

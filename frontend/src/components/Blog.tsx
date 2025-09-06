@@ -79,7 +79,7 @@ const Blog = ({ onReadMore }: BlogProps) => {
               {filteredBlogs.map((post) => (
                 <Card
                   key={post._id}
-                  className="relative shadow-md hover:shadow-lg transition-all duration-300 group"
+                  className="relative hover:scale-105 shadow-md hover:shadow-lg transition-all duration-300 group"
                 >
                   {/* Top-right tag */}
                   {post.tags && post.tags.length > 0 && (

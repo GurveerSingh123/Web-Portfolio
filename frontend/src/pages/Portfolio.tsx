@@ -319,7 +319,7 @@ const Portfolio = () => {
               </div>
 
               <div className="grid lg:grid-cols-2 gap-8">
-                <Card className="shadow-card hover:shadow-glow transition-all duration-300 animate-fade-in-up">
+                <Card className="shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300 animate-fade-in-up">
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-4">
                       <div className="bg-gradient-primary p-3 rounded-full">
@@ -333,7 +333,8 @@ const Portfolio = () => {
                           rel="noopener noreferrer"
                           className="text-primary font-medium hover:underline hover:text-blue-600 transition-colors duration-200">
                           CML Club
-                        </a>                         </div>
+                        </a>                         
+                        </div>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -367,7 +368,7 @@ const Portfolio = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="shadow-card hover:shadow-glow transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <Card className="shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-4">
                       <div className="bg-gradient-secondary p-3 rounded-full">

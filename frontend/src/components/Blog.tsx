@@ -34,7 +34,7 @@ const Blog = ({ onReadMore }: BlogProps) => {
         setBlogs(
           data.map((b: Blog) => ({
             ...b,
-            category: b.category || "AI",
+            category: b.category || "ALL",
             readTime: b.readTime || "5 min read",
             tags: b.tags && b.tags.length > 0 ? b.tags : ["Tech"],
           }))
@@ -46,7 +46,12 @@ const Blog = ({ onReadMore }: BlogProps) => {
   const filteredBlogs =
     activeCategory === "All"
       ? blogs
-      : blogs.filter((b) => b.category === activeCategory);
+      : blogs.filter(
+        (b) =>
+          b.category === activeCategory ||
+          (b.tags && b.tags.some((tag) => tag.toLowerCase() === activeCategory.toLowerCase()))
+      );
+
 
   return (
     <main className="pt-5">
@@ -92,7 +97,7 @@ const Blog = ({ onReadMore }: BlogProps) => {
                     </Badge>
                   )}
 
-                  <CardHeader>
+                  <CardHeader className="pr-16"> {/* adds right padding to avoid overlap */}
                     <h3 className="font-bold text-xl mb-2 group-hover:text-purple-600 transition-colors">
                       {post.title}
                     </h3>
@@ -104,17 +109,6 @@ const Blog = ({ onReadMore }: BlogProps) => {
                   </CardHeader>
 
                   <CardContent>
-                    {/* Remaining tags */}
-                    {post.tags && post.tags.length > 1 && (
-                      <div className="flex flex-wrap gap-2 mb-3 mt-6">
-                        {post.tags.slice(1).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center space-x-4">
                         <div className="flex items-center">
@@ -132,12 +126,17 @@ const Blog = ({ onReadMore }: BlogProps) => {
                           {post.readTime}
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm" onClick={() => onReadMore(post)} >
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onReadMore(post)}
+                      >
                         Read More →
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
+
               ))}
             </div>
           )}

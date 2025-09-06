@@ -7,7 +7,8 @@ import { SkillCard } from "@/components/SkillCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ServiceCard } from "@/components/ServiceCard";
 import { useToast } from "@/hooks/use-toast";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 
 import BlogDetail from "@/components/BlogDetail";
 
@@ -52,7 +53,10 @@ const Portfolio = () => {
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-  React.useEffect(() => {
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
     if (window.location.hash === "#blog") {
       setActiveTab("blog");
     }
@@ -215,7 +219,7 @@ const Portfolio = () => {
           </TabsList>
 
           {/* Home Tab */}
-          <TabsContent value="home" className="space-y-20">
+          <TabsContent value="home" className="space-y-20" >
             {/* Hero Section */}
             <section className="relative py-20 bg-gradient-hero rounded-lg">
               <div className="max-w-6xl mx-auto px-8">
@@ -493,18 +497,25 @@ const Portfolio = () => {
           </TabsContent>
 
           {/* Daily Blog Tab */}
-          <TabsContent value="blog">
+          <TabsContent value="blog"  >
+            <div className="animate-fade-in-up"> 
+
             <Blog onReadMore={(blog) => (window.location.href = `/blog/${blog._id}`)} />
+          </div>
           </TabsContent>
 
           {/* Image Gallery Tab */}
           <TabsContent value="gallery">
+            <div className="animate-fade-in-up">
             <Gallery />
+            </div>
           </TabsContent>
 
           {/* Contact Tab */}
           <TabsContent value="contact">
+            <div className="animate-fade-in-up">
             <Contact handleContactSubmit={handleContactSubmit} />
+            </div>
           </TabsContent>
         </Tabs>
       </div>

@@ -5,6 +5,7 @@ interface Blog {
   _id: string;
   title: string;
   images?: string[];
+  createdAt?: string;
 }
 
 const Gallery = () => {
@@ -17,17 +18,25 @@ const Gallery = () => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      try {
-        const res = await fetch("https://portfolio-website-5xgj.onrender.com/api/blogs"); // adjust to your backend
-        if (!res.ok) throw new Error("Failed to fetch blogs");
-        const data: Blog[] = await res.json();
-        setBlogs(data);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      const res = await fetch("https://portfolio-website-5xgj.onrender.com/api/blogs");
+      if (!res.ok) throw new Error("Failed to fetch blogs");
+      const data: Blog[] = await res.json();
+
+      // ✅ Sort blogs newest → oldest
+      const sorted = data.sort(
+        (a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+      );
+
+      setBlogs(sorted);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+    
 
     fetchBlogs();
   }, []);

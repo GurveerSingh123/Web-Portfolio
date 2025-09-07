@@ -31,16 +31,24 @@ const Blog = ({ onReadMore }: BlogProps) => {
   useEffect(() => {
     fetch("https://portfolio-website-5xgj.onrender.com/api/blogs")
       .then((res) => res.json())
-      .then((data) =>
-        setBlogs(
-          data.map((b: Blog) => ({
-            ...b,
-            category: b.category || "ALL",
-            readTime: b.readTime || "5 min read",
-            tags: b.tags && b.tags.length > 0 ? b.tags : ["Tech"],
-          }))
-        )
-      )
+      .then((data) => {
+        const formatted = data.map((b: Blog) => ({
+          ...b,
+          category: b.category || "ALL",
+          readTime: b.readTime || "5 min read",
+          tags: b.tags && b.tags.length > 0 ? b.tags : ["Tech"],
+        }));
+
+        // ✅ Sort newest first (by createdAt)
+        const sorted = formatted.sort(
+          (a, b) =>
+            new Date(b.createdAt || "").getTime() -
+            new Date(a.createdAt || "").getTime()
+        );
+
+        setBlogs(sorted);
+      })
+
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 

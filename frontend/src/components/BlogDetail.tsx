@@ -22,6 +22,8 @@ const BlogDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // ✅ useNavigate hook
+
 
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const BlogDetail = () => {
     if (id) fetchBlog();
   }, [id]);
   if (loading) return <p className="text-center mt-20">Loading blog...</p>;
-    if (!blog) return <p className="text-center mt-10">Blog not found</p>;
+  if (!blog) return <p className="text-center mt-10">Blog not found</p>;
 
 
   return (
@@ -79,14 +81,14 @@ const BlogDetail = () => {
         <Button
           variant="outline"
           className="mb-6"
-          onClick={() => window.location.href = `/gallery?blogId=${blog._id}`}
+          onClick={() => navigate(`/gallery?blogId=${blog._id}`)}
         >
           Show More Images →
         </Button>
       )}
 
       <p className="text-lg leading-relaxedc pt-2 pb-10">{blog.content}</p>
-      <Button variant="ghost"  onClick={() => (window.location.href = `/#blog`)} className="px-2 py-1 text-xs font-medium  bg-primary/30 border border-primary/20">
+      <Button variant="ghost" onClick={() =>navigate("/#blog")} className="px-2 py-1 text-xs font-medium  bg-primary/30 border border-primary/20">
         ← Back to Blogs
       </Button>
     </div>

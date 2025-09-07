@@ -496,27 +496,43 @@ const Portfolio = () => {
             </section>
           </TabsContent>
 
-          {/* Daily Blog Tab */}
-          <TabsContent value="blog"  >
-            <div className="animate-fade-in-up"> 
-
-            <Blog onReadMore={(blog) => (window.location.href = `/blog/${blog._id}`)} />
-          </div>
+          {/* Blog Tab */}
+          <TabsContent
+            value="blog"
+            forceMount
+            className={`transition-all duration-500 ${activeTab === "blog" ? "block" : "hidden"
+              }`}
+          >
+            <div className="animate-fade-in-up">
+              <Blog onReadMore={(blog) => (window.location.href = `/blog/${blog._id}`)} />
+            </div>
           </TabsContent>
 
-          {/* Image Gallery Tab */}
-          <TabsContent value="gallery">
+          {/* Gallery Tab */}
+          <TabsContent
+            value="gallery"
+            forceMount
+            className={`transition-all duration-500 ${activeTab === "gallery" ? "block" : "hidden"
+              }`}
+          >
             <div className="animate-fade-in-up">
-            <Gallery />
+              <Gallery />
             </div>
           </TabsContent>
 
           {/* Contact Tab */}
-          <TabsContent value="contact">
+          <TabsContent
+            value="contact"
+            forceMount
+            className={`transition-all duration-500 ${activeTab === "contact" ? "block" : "hidden"
+              }`}
+          >
             <div className="animate-fade-in-up">
-            <Contact handleContactSubmit={handleContactSubmit} />
+              <Contact handleContactSubmit={handleContactSubmit} />
             </div>
           </TabsContent>
+
+
         </Tabs>
       </div>
 

@@ -65,25 +65,54 @@ const Gallery = () => {
 
 
 
-      {images.length > 0 ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((img, idx) => (
-            <div
-              key={idx}
-              className="aspect-square overflow-hidden rounded-lg shadow-card shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300"
-            >
-              <img
-                src={img}
-                alt={`Gallery image ${idx + 1}`}
-                onClick={() => setSelectedImage(img)}
-                className="w-full h-full object-cover hover:scale-100 transition-transform duration-300"
-              />
-            </div>
-          ))}
+{images.length > 0 ? (
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {blogId && blog ? (
+      // ✅ Single blog images
+      images.map((img, idx) => (
+        <div
+          key={idx}
+          className="rounded-lg shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300 overflow-hidden bg-white"
+        >
+          <img
+            src={img}
+            alt={`${blog.title} - image ${idx + 1}`}
+            onClick={() => setSelectedImage(img)}
+            className="w-full h-60 object-cover cursor-pointer"
+          />
+          {/* Blog Title */}
+          <div className="p-4 text-left">
+            <h3 className="text-lg font-bold text-gray-900">{blog.title}</h3>
+          </div>
         </div>
-      ) : (
-        <p className="text-gray-500">No images available 📷</p>
-      )}
+      ))
+    ) : (
+      // ✅ All blogs images
+      blogs.flatMap((b) =>
+        (b.images || []).map((img, idx) => (
+          <div
+            key={`${b._id}-${idx}`}
+            className="rounded-lg shadow-card hover:scale-105 hover:shadow-glow transition-all duration-300 overflow-hidden bg-white"
+          >
+            <img
+              src={img}
+              alt={`${b.title} - image ${idx + 1}`}
+              onClick={() => setSelectedImage(img)}
+              className="w-full h-60 object-cover cursor-pointer"
+            />
+            {/* Blog Title */}
+            <div className="p-4 text-left">
+              <h3 className="text-lg text-gray-900">{b.title}</h3>
+            </div>
+          </div>
+        ))
+      )
+    )}
+  </div>
+) : (
+  <p className="text-gray-500">No images available 📷</p>
+)}
+
 
       {/* ✅ Fullscreen modal goes here */}
       {selectedImage && (
@@ -96,6 +125,12 @@ const Gallery = () => {
             alt="Fullscreen"
             className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
           />
+
+          <button
+          className="absolute top-6 right-6 text-white text-3xl"
+          onClick={() => setSelectedImage(null)}>
+            ✕
+          </button>
         </div>
       )}
     </div>

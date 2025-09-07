@@ -210,7 +210,7 @@ const Portfolio = () => {
             </TabsTrigger>
             <TabsTrigger value="gallery" className="flex items-center gap-2">
               <Image className="h-4 w-4" />
-              Image Gallery
+              Images
             </TabsTrigger>
             <TabsTrigger value="contact" className="flex items-center gap-2">
               <Mail className="h-4 w-4" />

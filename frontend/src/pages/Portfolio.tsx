@@ -201,21 +201,25 @@ const Portfolio = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="home" className="flex items-center gap-2">
-              <Home className="h-4 w-4" />
+              <Home className="h-5 w-5 sm:h-4 sm:w-4" />
               Home
             </TabsTrigger>
+
             <TabsTrigger value="blog" className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4" />
+              <BookOpen className="h-5 w-5 sm:h-4 sm:w-4" />
               Blog
             </TabsTrigger>
+
             <TabsTrigger value="gallery" className="flex items-center gap-2">
-              <Image className="h-4 w-4" />
+              <Image className="h-5 w-5 sm:h-4 sm:w-4" />
               Images
             </TabsTrigger>
+
             <TabsTrigger value="contact" className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
+              <Mail className="h-5 w-5 sm:h-4 sm:w-4" />
               Contact
             </TabsTrigger>
+
           </TabsList>
 
           {/* Home Tab */}

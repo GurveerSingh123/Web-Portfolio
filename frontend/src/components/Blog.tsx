@@ -22,7 +22,7 @@ interface BlogProps {
   onReadMore: (blog: Blog) => void;
 }
 
-const categories = ["All", "AI", "Machine Learning", "Deep Learning"];
+const categories = ["All", "AI", "ML", "Deep Learning"];
 
 const Blog = ({ onReadMore }: BlogProps) => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -59,7 +59,7 @@ const Blog = ({ onReadMore }: BlogProps) => {
 
       {/* Category Filter */}
       <section className="pb-8 px-4">
-        <div className="container mx-auto max-w-5xl flex flex-wrap justify-center gap-3">
+        <div className="container mx-auto max-w-5xl flex flex-wrap items-center justify-center gap-3">
           {categories.map((category) => (
             <Button
               key={category}
@@ -76,18 +76,19 @@ const Blog = ({ onReadMore }: BlogProps) => {
 
       {/* Blog Posts */}
       <section className="pb-12 px-4">
-        <div className="container mx-auto max-w-5xl">
+        <div className="mx-auto max-w-5xl">
           {filteredBlogs.length === 0 ? (
             <p className="text-center text-muted-foreground">
               No blogs found in this category.
             </p>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredBlogs.map((post) => (
                 <Card
                   key={post._id}
-                  className="relative hover:shadow-glow hover:scale-105 shadow-md transition-all duration-300 group"
+                  className="relative w-full sm:w-full hover:shadow-glow hover:scale-105 shadow-md transition-all duration-300 group"
                 >
+
                   {/* Top-right tag */}
 
                   <CardHeader className="pr-3"> {/* adds right padding to avoid overlap */}
@@ -114,7 +115,7 @@ const Blog = ({ onReadMore }: BlogProps) => {
                   </CardHeader>
 
                   <CardContent>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <div className="flex items-center justify-between text-sm text-muted-foreground px-1">
                       <div className="flex items-center space-x-4">
                         <div className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />

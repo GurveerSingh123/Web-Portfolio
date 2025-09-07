@@ -23,6 +23,11 @@ const BlogSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+
+    readTime: {
+      type: String,
+      default: "5 min Read",
+    },
   },
   { timestamps: true } // createdAt & updatedAt
 );

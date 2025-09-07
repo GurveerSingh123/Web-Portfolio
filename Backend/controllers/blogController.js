@@ -37,9 +37,32 @@ const getBlogById = async (req, res) => {
   }
 };
 
+
+// Update a blog by ID
+const updateBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body }, // only update fields provided
+      { new: true, runValidators: true } // return updated doc & validate
+    );
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    res.json(blog);
+  } catch (err) {
+    console.error("Error updating blog:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 // Export them so routes can use them
 module.exports = {
   getBlogs,
   createBlog,
   getBlogById,
+  updateBlog
 };

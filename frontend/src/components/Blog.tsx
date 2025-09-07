@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, BookOpen } from "lucide-react";
+import { spawn } from "child_process";
 
 interface Blog {
   _id: string;
@@ -88,19 +89,23 @@ const Blog = ({ onReadMore }: BlogProps) => {
                   className="relative hover:scale-105 shadow-md hover:shadow-lg transition-all duration-300 group"
                 >
                   {/* Top-right tag */}
-                  {post.tags && post.tags.length > 0 && (
-                    <Badge
-                      variant="secondary"
-                      className="absolute top-4 right-4 text-xs bg-purple-100 text-purple-800 z-10"
-                    >
-                      {post.tags[0]}
-                    </Badge>
-                  )}
 
-                  <CardHeader className="pr-16"> {/* adds right padding to avoid overlap */}
-                    <h3 className="font-bold text-xl mb-2 group-hover:text-purple-600 transition-colors">
-                      {post.title}
-                    </h3>
+                  <CardHeader className="pr-3"> {/* adds right padding to avoid overlap */}
+                    <div className="flex justify-between items-start">
+                      <h3 className="font-bold text-xl mb-2 group-hover:text-purple-600 transition-colors">
+                        {post.title}
+                      </h3>
+                      {post.tags?.length > 0 && (
+                        <Badge
+                          variant="secondary"
+                          className="flex items-center hover:bg-purple-200 justify-center text-xs bg-purple-100 text-purple-800 px-3 py-1 rounded-full leading-none"
+                        >
+                          {post.tags[0]}
+                        </Badge>
+
+
+                      )}
+                    </div>
                     <p className="text-muted-foreground leading-relaxed">
                       {post.content.length > 120
                         ? post.content.slice(0, 120) + "..."

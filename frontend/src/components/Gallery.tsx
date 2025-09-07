@@ -18,7 +18,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/blogs"); // adjust to your backend
+        const res = await fetch("https://portfolio-website-5xgj.onrender.com/api/blogs"); // adjust to your backend
         if (!res.ok) throw new Error("Failed to fetch blogs");
         const data: Blog[] = await res.json();
         setBlogs(data);

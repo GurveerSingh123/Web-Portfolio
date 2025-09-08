@@ -253,16 +253,20 @@ const Portfolio = () => {
                     </div>
                   </div>
                   <div className="flex-shrink-0 animate-fade-in">
-                    <div className="relative">
-                      <div className="w-72 h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-glow border-4 border-primary/20">
+                    <div className="relative group">
+                      <div
+                        className="w-72 h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-glow border-primary
+               transition-transform duration-500 ease-in-out transform group-hover:scale-110 group-hover:shadow-glow-lg"
+                      >
                         <img
                           src={gurveerProfile}
                           alt="Gurveer Singh - AI/ML Enthusiast"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform "
                         />
                       </div>
-                      <div className="absolute -z-10 inset-0 bg-gradient-primary rounded-full blur-xl opacity-30 animate-glow"></div>
+                      <div className="absolute -z-10 inset-0 bg-gradient-primary rounded-full blur-xl opacity-10 animate-glow"></div>
                     </div>
+
                   </div>
                 </div>
               </div>

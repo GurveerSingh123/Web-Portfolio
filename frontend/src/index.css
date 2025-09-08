@@ -45,7 +45,7 @@ All colors MUST be HSL.
     --gradient-primary: linear-gradient(135deg, hsl(246 91% 69%), hsl(246 91% 80%));
     --gradient-secondary: linear-gradient(135deg, hsl(50 100% 68%), hsl(50 100% 75%));
     --gradient-hero: linear-gradient(135deg, hsl(246 91% 69% / 0.1), hsl(50 100% 68% / 0.1));
-    --shadow-glow: 0 10px 40px hsl(246 91% 69% / 0.3);
+    --shadow-glow: 0 10px 40px hsl(246 91% 69% / 0.4);
     --shadow-card: 0 4px 20px hsl(222 84% 5% / 0.08);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 

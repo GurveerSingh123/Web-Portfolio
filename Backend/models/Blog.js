@@ -28,8 +28,14 @@ const BlogSchema = new mongoose.Schema(
       type: String,
       default: "5 min Read",
     },
+
+      createdAt: {
+      type: Date,
+      default: Date.now,  // if not given, set automatically
+    },
+
   },
-  { timestamps: true } // createdAt & updatedAt
+ { timestamps: { createdAt: false, updatedAt: true } } 
 );
 
 module.exports = mongoose.model('Blog', BlogSchema);
